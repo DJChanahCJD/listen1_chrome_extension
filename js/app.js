@@ -36,6 +36,22 @@ const sourceList = [
     name: 'taihe',
     displayId: '_TAIHE_MUSIC',
   },
+  {
+    name: 'gdnetease',
+    displayId: '_GD_NETEASE_MUSIC',
+  },
+  {
+    name: 'joox',
+    displayId: '_JOOX_MUSIC',
+  },
+  {
+    name: 'xiaoqiu',
+    displayId: '_XIAOQIU_MUSIC',
+  },
+  {
+    name: 'xiaowo',
+    displayId: '_XIAOWO_MUSIC',
+  },
 ];
 
 const main = () => {

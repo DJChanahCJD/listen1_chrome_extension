@@ -3,13 +3,14 @@
 /* eslint-disable no-shadow */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-param-reassign */
-/* global angular notyf i18next MediaService l1Player hotkeys isElectron require GithubClient lastfm */
+/* global angular notyf i18next MediaService l1Player hotkeys isElectron require GithubClient lastfm downloadSong */
 // control main view of page, it can be called any place
 angular.module('listenone').controller('NavigationController', [
   '$scope',
   '$timeout',
   '$rootScope',
   ($scope, $timeout, $rootScope) => {
+    $rootScope.downloadSong = downloadSong; // 供所有子 scope 使用
     $rootScope.page_title = { title: 'Listen 1', artist: '', status: '' }; // eslint-disable-line no-param-reassign
     $scope.window_url_stack = [];
     $scope.window_poped_url_stack = [];
