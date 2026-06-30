@@ -123,7 +123,7 @@ angular.module('listenone').controller('ProfileController', [
     };
     $scope.setLang(defaultLang);
 
-    let defaultTheme = 'white';
+    let defaultTheme = 'black2';
     if (localStorage.getObject('theme') !== null) {
       defaultTheme = localStorage.getObject('theme');
     }

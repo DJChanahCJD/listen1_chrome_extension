@@ -64,6 +64,7 @@
     <script type="text/javascript" src="js/loweb.js"></script>
     <script type="text/javascript" src="js/l1_player.js"></script>
     <script type="text/javascript" src="js/download.js"></script>
+    <script type="text/javascript" src="js/download_manager.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
     <script type="text/javascript" src="js/controller/profile.js"></script>
     <script type="text/javascript" src="js/controller/auth.js"></script>
@@ -763,6 +764,15 @@
                                     </li>
                                   </div>
                                 </ul>
+                                <div class="batch-entry" ng-show="!batchMode && searchType===0 && result.length > 0">
+                                  <button ng-click="toggleBatchMode()">{{_BATCH_DOWNLOAD}}</button>
+                                </div>
+                                <div class="batch-toolbar" ng-show="batchMode && searchType===0">
+                                  <label><input type="checkbox" ng-checked="allSelected(result)" ng-click="allSelected(result) ? deselectAll() : selectAll(result)"> {{_SELECT_ALL}}</label>
+                                  <span class="batch-count">{{selectedCount(result)}} / {{result.length}}</span>
+                                  <button ng-click="downloadSelected(result)">{{_DOWNLOAD_SELECTED}}</button>
+                                  <button ng-click="toggleBatchMode()">{{_EXIT_BATCH_MODE}}</button>
+                                </div>
                                 <ul class="detail-songlist">
                                   <li class="head" ng-if="searchType===0 ">
                                     <div class="title"><a>{{_SONGS}}</a></div>
@@ -790,6 +800,7 @@
                                     ng-mouseleave="options=false"
                                     ng-dblclick="addAndPlay(song)"
                                   >
+                                    <input type="checkbox" class="song-checkbox" ng-show="batchMode" ng-checked="selectedSongIds[song.id]" ng-click="toggleSelect(song); $event.stopPropagation()">
                                     <div class="title">
                                       <!-- <a ng-if="song.disabled" class="disabled" ng-click="copyrightNotice()">{{ song.title |limitTo:30}}</a> -->
                                       <a add-and-play="song"
@@ -1647,10 +1658,26 @@
                                       <span>{{_IMPORT}}</span>
                                     </div>
                                   </div>
+                                  <div
+                                    class="playlist-button batch-button"
+                                    ng-show="!is_local"
+                                    ng-click="toggleBatchMode()"
+                                  >
+                                    <div class="play-list">
+                                      <span class="icon li-songlist"></span
+                                      ><span>{{batchMode ? _EXIT_BATCH_MODE : _BATCH_DOWNLOAD}}</span>
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
                             </div>
-    
+
+                            <div class="batch-toolbar" ng-show="batchMode">
+                              <label><input type="checkbox" ng-checked="allSelected(songs)" ng-click="allSelected(songs) ? deselectAll() : selectAll(songs)"> {{_SELECT_ALL}}</label>
+                              <span class="batch-count">{{selectedCount(songs)}} / {{songs.length}}</span>
+                              <button ng-click="downloadSelected(songs)">{{_DOWNLOAD_SELECTED}}</button>
+                              <button ng-click="toggleBatchMode()">{{_EXIT_BATCH_MODE}}</button>
+                            </div>
                             <ul class="detail-songlist">
                               <div class="playlist-search">
                                 <svg class="feather playlist-search-icon">
@@ -1693,6 +1720,7 @@
                                 drag-zone-type="'application/listen1-song'"
                                 drop-zone-ondrop="onPlaylistSongDrop(list_id, song, arg1, arg2, arg3)"
                               >
+                                <input type="checkbox" class="song-checkbox" ng-show="batchMode" ng-checked="selectedSongIds[song.id]" ng-click="toggleSelect(song); $event.stopPropagation()">
                                 <div class="title">
                                   <!-- <a class="disabled" ng-if="song.disabled" ng-click="copyrightNotice()">{{ song.title }}</a> -->
                                   <a add-and-play="song">{{ song.title }}</a>
@@ -2041,6 +2069,15 @@
                           </svg>
                         </a>
                       </div>
+                      <div class="batch-entry" ng-show="!batchMode && playlist.length > 0">
+                        <button ng-click="toggleBatchMode()">{{_BATCH_DOWNLOAD}}</button>
+                      </div>
+                      <div class="batch-toolbar" ng-show="batchMode">
+                        <label><input type="checkbox" ng-checked="allSelected(playlist)" ng-click="allSelected(playlist) ? deselectAll() : selectAll(playlist)"> {{_SELECT_ALL}}</label>
+                        <span class="batch-count">{{selectedCount(playlist)}} / {{playlist.length}}</span>
+                        <button ng-click="downloadSelected(playlist)">{{_DOWNLOAD_SELECTED}}</button>
+                        <button ng-click="toggleBatchMode()">{{_EXIT_BATCH_MODE}}</button>
+                      </div>
                       <ul class="menu-list">
                         <li
                           id="song{{ song.id }}"
@@ -2059,6 +2096,7 @@
                           drag-zone-type="'application/listen1-song'"
                           drop-zone-ondrop="onCurrentPlayingSongDrop(song, arg1, arg2, arg3)"
                         >
+                          <input type="checkbox" class="song-checkbox" ng-show="batchMode" ng-checked="selectedSongIds[song.id]" ng-click="toggleSelect(song); $event.stopPropagation()">
                           <div class="song-status-icon">
                             <svg
                               class="feather play"
@@ -2836,6 +2874,15 @@
                               margin-left: 26px;
                               margin-right: 26px;
                           "><span style="opacity: .58;user-select: none;">搜索 <span ng-show="isSearchType(0)">歌曲</span><span ng-show="isSearchType(1)">歌单</span> </span>"{{keywords}}"</h1>
+                              <div class="batch-entry" ng-show="!batchMode && searchType===0 && result.length > 0">
+                                <button ng-click="toggleBatchMode()">{{_BATCH_DOWNLOAD}}</button>
+                              </div>
+                              <div class="batch-toolbar" ng-show="batchMode && searchType===0">
+                                <label><input type="checkbox" ng-checked="allSelected(result)" ng-click="allSelected(result) ? deselectAll() : selectAll(result)"> {{_SELECT_ALL}}</label>
+                                <span class="batch-count">{{selectedCount(result)}} / {{result.length}}</span>
+                                <button ng-click="downloadSelected(result)">{{_DOWNLOAD_SELECTED}}</button>
+                                <button ng-click="toggleBatchMode()">{{_EXIT_BATCH_MODE}}</button>
+                              </div>
                               <ul ng-class="{'isSearch':isSearchType(1),isSearchOne:isSearchType(0)}" class="detail-songlist">
                                 <!-- <li class="head" ng-if="searchType===0 ">
                                   <div class="title"><a>{{_SONGS}}</a></div>
@@ -2862,6 +2909,7 @@
                                   ng-mouseleave="options=false"
                                   ng-dblclick="addAndPlay(song)"
                                 >
+                                <input type="checkbox" class="song-checkbox" ng-show="batchMode" ng-checked="selectedSongIds[song.id]" ng-click="toggleSelect(song); $event.stopPropagation()">
                                 <img
                                 add-and-play="song"
                                         ng-src="{{ song.img_url }}?param=224y224"
@@ -3754,14 +3802,30 @@
                                 >
                                   <div class="play-list">
                                     <svg t="1659668939470" class="icon feather" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2273" width="512" height="512"><path d="M725.333333 938.666667H298.666667a256 256 0 0 1-256-256V341.333333h128v298.666667a170.666667 170.666667 0 0 0 170.666666 170.666667h341.333334a170.666667 170.666667 0 0 0 170.666666-170.666667V341.333333h128v341.333334a256 256 0 0 1-256 256zM256 426.666667h128V213.333333h256v213.333334h128l-256 256z m128-341.333334h256v85.333334H384V85.333333z" fill="currentColor" p-id="2274"></path></svg>
-                                  
+
                                     <span>{{_IMPORT}}</span>
+                                  </div>
+                                </div>
+                                <div
+                                  class="playlist-button batch-button"
+                                  ng-show="!is_local"
+                                  ng-click="toggleBatchMode()"
+                                >
+                                  <div class="play-list">
+                                    <span class="icon li-songlist"></span
+                                    ><span>{{batchMode ? _EXIT_BATCH_MODE : _BATCH_DOWNLOAD}}</span>
                                   </div>
                                 </div>
                               </div>
                             </div>
                           </div>
 
+                          <div class="batch-toolbar" ng-show="batchMode">
+                            <label><input type="checkbox" ng-checked="allSelected(songs)" ng-click="allSelected(songs) ? deselectAll() : selectAll(songs)"> {{_SELECT_ALL}}</label>
+                            <span class="batch-count">{{selectedCount(songs)}} / {{songs.length}}</span>
+                            <button ng-click="downloadSelected(songs)">{{_DOWNLOAD_SELECTED}}</button>
+                            <button ng-click="toggleBatchMode()">{{_EXIT_BATCH_MODE}}</button>
+                          </div>
                           <ul class="detail-songlist playlist-songlist"  ng-style="{'padding-bottom':playlist.length == 0?'13px':'120px'}">
                             <div class="playlist-search">
                               <svg  fill="currentColor" style="opacity: 0.28;margin-right: 4px;width: 15px;height: 15px;cursor: default;" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"></path></svg>
@@ -3814,6 +3878,7 @@
                               drag-zone-type="'application/listen1-song'"
                               drop-zone-ondrop="onPlaylistSongDrop(list_id, song, arg1, arg2, arg3)"
                             >
+                            <input type="checkbox" class="song-checkbox" ng-show="batchMode" ng-checked="selectedSongIds[song.id]" ng-click="toggleSelect(song); $event.stopPropagation()">
                             <img err-src="https://y.gtimg.cn/mediastyle/global/img/playlist_300.png" add-and-play="song" ng-src="{{ song.img_url }}?param=224y224" alt="">
                             <div class="title-and-artist">
                             <div class="container">
@@ -4250,6 +4315,15 @@
                         <svg  fill="currentColor" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" class="svg-inline--fa fa-times fa-w-11" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512"><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg>
                       </a>
                     </div>
+                    <div class="batch-entry" ng-show="!batchMode && playlist.length > 0">
+                      <button ng-click="toggleBatchMode()">{{_BATCH_DOWNLOAD}}</button>
+                    </div>
+                    <div class="batch-toolbar" ng-show="batchMode">
+                      <label><input type="checkbox" ng-checked="allSelected(playlist)" ng-click="allSelected(playlist) ? deselectAll() : selectAll(playlist)"> {{_SELECT_ALL}}</label>
+                      <span class="batch-count">{{selectedCount(playlist)}} / {{playlist.length}}</span>
+                      <button ng-click="downloadSelected(playlist)">{{_DOWNLOAD_SELECTED}}</button>
+                      <button ng-click="toggleBatchMode()">{{_EXIT_BATCH_MODE}}</button>
+                    </div>
                     <ul class="menu-list">
                       <li
                         id="song{{ song.id }}"
@@ -4266,6 +4340,7 @@
                         drag-zone-type="'application/listen1-song'"
                         drop-zone-ondrop="onCurrentPlayingSongDrop(song, arg1, arg2, arg3)"
                       >
+                        <input type="checkbox" class="song-checkbox" ng-show="batchMode" ng-checked="selectedSongIds[song.id]" ng-click="toggleSelect(song); $event.stopPropagation()">
                         <div class="song-status-icon">
 
                           <svg class="feather play"
@@ -4318,6 +4393,47 @@
         </div>
       </div>
       </div>
+  </div>
+  <!-- 浮动下载面板 -->
+  <div
+    class="download-panel"
+    ng-controller="NavigationController"
+    ng-show="downloadManager.tasks.length > 0"
+  >
+    <div class="download-panel-header" ng-click="panelCollapsed = !panelCollapsed">
+      <span class="download-panel-title">{{_DOWNLOAD_PANEL_TITLE}}</span>
+      <span class="download-panel-count">{{downloadManager.tasks.length}}</span>
+      <span class="download-panel-toggle">{{panelCollapsed ? '▸' : '▾'}}</span>
+    </div>
+    <div class="download-panel-body" ng-hide="panelCollapsed">
+      <div class="download-task" ng-repeat="task in downloadManager.tasks">
+        <div class="download-task-title">{{task.track.artist}} - {{task.track.title}}</div>
+        <div class="download-task-progress">
+          <div
+            class="download-task-bar"
+            ng-class="{indeterminate: task.progress < 0, failed: task.status==='failed', canceled: task.status==='canceled'}"
+            ng-style="{width: (task.progress < 0 ? 100 : task.progress) + '%'}"
+          ></div>
+        </div>
+        <div class="download-task-status">
+          <span ng-if="task.status==='queued'">{{_DOWNLOAD_PENDING}}</span>
+          <span ng-if="task.status==='downloading' && task.progress >= 0">{{task.progress}}%</span>
+          <span ng-if="task.status==='downloading' && task.progress < 0">{{_DOWNLOAD_IN_PROGRESS}}</span>
+          <span ng-if="task.status==='done'">{{_DOWNLOAD_COMPLETED}}</span>
+          <span ng-if="task.status==='failed'">{{_DOWNLOAD_FAILED}}</span>
+          <span ng-if="task.status==='canceled'">{{_DOWNLOAD_CANCELED}}</span>
+        </div>
+        <a
+          class="download-task-cancel"
+          ng-if="task.status==='queued' || task.status==='downloading'"
+          ng-click="downloadManager.cancel(task.id)"
+          >✕</a
+        >
+      </div>
+      <div class="download-panel-actions">
+        <a ng-click="downloadManager.clearCompleted()">{{_CLEAR_COMPLETED}}</a>
+      </div>
+    </div>
   </div>
   </body>
   <!-- <script type="text/javascript">

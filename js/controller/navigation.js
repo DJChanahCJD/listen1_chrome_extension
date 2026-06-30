@@ -3,7 +3,7 @@
 /* eslint-disable no-shadow */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-param-reassign */
-/* global angular notyf i18next MediaService l1Player hotkeys isElectron require GithubClient lastfm downloadSong */
+/* global angular notyf i18next MediaService l1Player hotkeys isElectron require GithubClient lastfm downloadSong downloadManager */
 // control main view of page, it can be called any place
 angular.module('listenone').controller('NavigationController', [
   '$scope',
@@ -11,7 +11,78 @@ angular.module('listenone').controller('NavigationController', [
   '$rootScope',
   ($scope, $timeout, $rootScope) => {
     $rootScope.downloadSong = downloadSong; // 供所有子 scope 使用
+    $rootScope.downloadManager = downloadManager; // 浮动下载面板绑定
     $rootScope.page_title = { title: 'Listen 1', artist: '', status: '' }; // eslint-disable-line no-param-reassign
+
+    // 批量下载模式状态
+    $scope.batchMode = false;
+    $scope.selectedSongIds = {};
+    $scope.panelCollapsed = false;
+
+    /**
+     * 切换批量模式：进入时清空已选
+     */
+    $scope.toggleBatchMode = () => {
+      $scope.batchMode = !$scope.batchMode;
+      if (!$scope.batchMode) $scope.selectedSongIds = {};
+    };
+    /**
+     * 切换单首歌曲的选中状态
+     * @param {Object} song - 歌曲对象
+     */
+    $scope.toggleSelect = (song) => {
+      if ($scope.selectedSongIds[song.id]) {
+        delete $scope.selectedSongIds[song.id];
+      } else {
+        $scope.selectedSongIds[song.id] = true;
+      }
+    };
+    /**
+     * 全选当前列表
+     * @param {Array<Object>} songs - 当前显示的歌曲数组
+     */
+    $scope.selectAll = (songs) => {
+      if (!songs) return;
+      songs.forEach((s) => {
+        $scope.selectedSongIds[s.id] = true;
+      });
+    };
+    /**
+     * 取消全选
+     */
+    $scope.deselectAll = () => {
+      $scope.selectedSongIds = {};
+    };
+    /**
+     * 判断当前列表是否已全选
+     * @param {Array<Object>} songs - 当前显示的歌曲数组
+     * @returns {boolean}
+     */
+    $scope.allSelected = (songs) => {
+      if (!songs || songs.length === 0) return false;
+      return songs.every((s) => $scope.selectedSongIds[s.id]);
+    };
+    /**
+     * 统计当前列表已选数量
+     * @param {Array<Object>} songs - 当前显示的歌曲数组
+     * @returns {number}
+     */
+    $scope.selectedCount = (songs) => {
+      if (!songs) return 0;
+      return songs.filter((s) => $scope.selectedSongIds[s.id]).length;
+    };
+    /**
+     * 下载当前列表中已选歌曲，完成后退出批量模式
+     * @param {Array<Object>} songs - 当前显示的歌曲数组
+     */
+    $scope.downloadSelected = (songs) => {
+      if (!songs) return;
+      const selected = songs.filter((s) => $scope.selectedSongIds[s.id]);
+      if (selected.length === 0) return;
+      downloadManager.enqueueBatch(selected);
+      $scope.batchMode = false;
+      $scope.selectedSongIds = {};
+    };
     $scope.window_url_stack = [];
     $scope.window_poped_url_stack = [];
     $scope.current_tag = 2;

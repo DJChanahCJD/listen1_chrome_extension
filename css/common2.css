@@ -2732,3 +2732,174 @@ svg.searchspinner {
 }
 
 /* widget all-playlist-filter end */
+
+/* 下载浮动面板 start */
+.download-panel {
+  position: fixed;
+  right: 16px;
+  bottom: 80px;
+  width: 320px;
+  max-height: 400px;
+  z-index: 1000;
+  background: #2a2a2a;
+  border: 1px solid #444;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  color: #ddd;
+}
+.download-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-weight: 600;
+  border-bottom: 1px solid #444;
+  background: #1f1f1f;
+}
+.download-panel-title {
+  flex: 1;
+}
+.download-panel-count {
+  background: #335eea;
+  color: #fff;
+  border-radius: 10px;
+  padding: 0 8px;
+  font-size: 12px;
+  margin: 0 8px;
+}
+.download-panel-toggle {
+  font-size: 12px;
+  color: #999;
+}
+.download-panel-body {
+  max-height: 320px;
+  overflow-y: auto;
+}
+.download-task {
+  padding: 8px 12px;
+  border-bottom: 1px solid #333;
+  position: relative;
+}
+.download-task-title {
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 20px;
+  color: #ddd;
+}
+.download-task-progress {
+  height: 4px;
+  background: #444;
+  border-radius: 2px;
+  margin: 6px 0 4px;
+  overflow: hidden;
+}
+.download-task-bar {
+  height: 100%;
+  background: #335eea;
+  transition: width 0.2s;
+}
+.download-task-bar.indeterminate {
+  background: linear-gradient(
+    90deg,
+    #335eea 0%,
+    #88a 50%,
+    #335eea 100%
+  );
+  background-size: 200% 100%;
+  animation: indet 1.5s linear infinite;
+}
+.download-task-bar.failed {
+  background: #b90b2c;
+}
+.download-task-bar.canceled {
+  background: #666;
+}
+@keyframes indet {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+.download-task-status {
+  font-size: 11px;
+  color: #999;
+}
+.download-task-cancel {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  cursor: pointer;
+  color: #999;
+  font-size: 12px;
+}
+.download-panel-actions {
+  padding: 6px 12px;
+  text-align: right;
+  font-size: 12px;
+  border-top: 1px solid #444;
+}
+.download-panel-actions a {
+  cursor: pointer;
+  color: #6e8ee9;
+}
+/* 下载浮动面板 end */
+
+/* 批量模式工具栏 start */
+.batch-entry {
+  padding: 8px 16px;
+}
+.batch-entry button {
+  padding: 4px 12px;
+  border: 1px solid #335eea;
+  border-radius: 4px;
+  background: #335eea;
+  color: #fff;
+  cursor: pointer;
+  font-size: 13px;
+}
+.batch-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  background: #1f1f1f;
+  border-top: 1px solid #444;
+  border-bottom: 1px solid #444;
+  font-size: 13px;
+  color: #ddd;
+}
+.batch-toolbar label {
+  cursor: pointer;
+  user-select: none;
+}
+.batch-toolbar .batch-count {
+  color: #999;
+}
+.batch-toolbar button {
+  padding: 4px 12px;
+  border: 1px solid #335eea;
+  border-radius: 4px;
+  background: #335eea;
+  color: #fff;
+  cursor: pointer;
+  font-size: 13px;
+}
+.batch-toolbar button:last-child {
+  background: #2a2a2a;
+  color: #6e8ee9;
+}
+.song-checkbox {
+  margin-right: 8px;
+  vertical-align: middle;
+  cursor: pointer;
+}
+.batch-button {
+  cursor: pointer;
+}
+/* 批量模式工具栏 end */
