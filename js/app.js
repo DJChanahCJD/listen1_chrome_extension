@@ -52,6 +52,10 @@ const sourceList = [
     name: 'xiaowo',
     displayId: '_XIAOWO_MUSIC',
   },
+  {
+    name: 'asmrgay',
+    displayId: '_ASMRGAY_MUSIC',
+  },
 ];
 
 const main = () => {
