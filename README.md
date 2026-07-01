@@ -10,7 +10,7 @@
 ## 新增特性
 
 - **内置下载** — 歌曲一键下载，支持进度显示、批量下载
-- **免费 Provider** — 新增小秋（xiaoqiu）、小窝（xiaowo）、网易云（GD）、Joox 这 4 个免费音乐源
+- **免费 Provider** — 新增小秋（xiaoqiu）、小窝（xiaowo）、ASMR GAY（asmrgay）、网易云（GD）、Joox 这 5 个免费音乐源
 
 ## 支持的音乐平台
 
@@ -26,6 +26,7 @@
 | Joox | jx | 通过 GD API |
 | 小秋音乐 | xq | 免费源 (需网络可用) |
 | 小窝音乐 | xw | 免费源 (需网络可用) |
+| ASMR GAY | ag | 免费源，基于 Alist API |
 
 ## 安装
 
@@ -56,6 +57,7 @@
 │   ├── provider/
 │   │   ├── xiaoqiu.js         # 小秋音乐 (id: xq)
 │   │   ├── xiaowo.js          # 小窝音乐 (id: xw)
+│   │   ├── asmrgay.js         # ASMR GAY (id: ag)
 │   │   ├── gdnetease.js       # GD 网易云 (id: gn)
 │   │   ├── joox.js            # Joox (id: jx)
 │   │   └── ...                # 其余同原版
