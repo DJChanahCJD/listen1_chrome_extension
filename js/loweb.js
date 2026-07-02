@@ -1,5 +1,5 @@
 /* global async LRUCache setPrototypeOfLocalStorage getLocalStorageValue */
-/* global netease xiami qq kugou kuwo bilibili migu taihe localmusic myplaylist gdnetease joox xiaoqiu xiaowo asmrgay */
+/* global netease xiami qq kugou kuwo bilibili migu taihe localmusic myplaylist gdnetease joox xiaoqiu xiaowo asmrgay asmrmoon asmrone */
 
 const PROVIDERS = [
   {
@@ -93,6 +93,20 @@ const PROVIDERS = [
     searchable: true,
     support_login: false,
     id: 'ag',
+  },
+  {
+    name: 'asmrmoon',
+    instance: asmrmoon,
+    searchable: true,
+    support_login: false,
+    id: 'am',
+  },
+  {
+    name: 'asmrone',
+    instance: asmrone,
+    searchable: true,
+    support_login: false,
+    id: 'ao',
   },
   {
     name: 'localmusic',

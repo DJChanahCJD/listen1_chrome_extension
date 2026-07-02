@@ -57,5 +57,28 @@
       "urlFilter": "|*.bilivideo.com/",
       "resourceTypes": ["media"]
     }
+  },
+  {
+    "id": 4,
+    "priority": 1,
+    "action": {
+      "type": "modifyHeaders",
+      "requestHeaders": [
+        {
+          "header": "referer",
+          "operation": "set",
+          "value": "https://asmr.one/"
+        },
+        {
+          "header": "origin",
+          "operation": "set",
+          "value": "https://asmr.one"
+        }
+      ]
+    },
+    "condition": {
+      "urlFilter": "*://api.asmr*",
+      "resourceTypes": ["xmlhttprequest"]
+    }
   }
 ]

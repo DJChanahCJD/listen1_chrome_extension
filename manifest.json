@@ -47,7 +47,11 @@
     "*://gist.githubusercontent.com/*",
     "*://music-api.gdstudio.xyz/*",
     "*://lxmusicapi.onrender.com/*",
-    "*://www.asmrgay.com/*"
+    "*://www.asmrgay.com/*",
+    "*://asmrmoon.com/*",
+    "*://*.asmr.one/*",
+    "*://*.asmr-300.com/*",
+    "*://as.mr/*"
   ],
   "version": "2.33.0",
   "web_accessible_resources": [

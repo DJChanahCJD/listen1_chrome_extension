@@ -56,6 +56,14 @@ const sourceList = [
     name: 'asmrgay',
     displayId: '_ASMRGAY_MUSIC',
   },
+  {
+    name: 'asmrmoon',
+    displayId: '_ASMRMOON_MUSIC',
+  },
+  {
+    name: 'asmrone',
+    displayId: '_ASMRONE_MUSIC',
+  },
 ];
 
 const main = () => {
