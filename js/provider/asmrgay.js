@@ -4,6 +4,12 @@ class asmrgay {
   /** Alist API 基础 URL */
   static apiBase = 'https://www.asmrgay.com';
 
+  /** 精选歌单根目录路径 */
+  static FEATURED_DIR = '/asmr/中文音声';
+
+  /** 精选歌单每页数量 */
+  static PLAYLIST_PAGE_SIZE = 30;
+
   /** 支持的音频文件扩展名 */
   static AUDIO_EXTENSIONS = [
     '.mp3', '.flac', '.wav', '.ogg', '.m4a', '.wma',
@@ -80,7 +86,7 @@ class asmrgay {
                     title: f.name,
                     source: 'asmrgay',
                     source_url: `${this.apiBase}${fullPath}`,
-                    img_url: '',
+                    img_url: 'https://y.gtimg.cn/mediastyle/global/img/playlist_300.png',
                     url: `agdir_${encPath}`,
                     author: f.parent || '/',
                     count: 0,
@@ -154,9 +160,52 @@ class asmrgay {
     };
   }
 
-  /** 歌单列表（不支持） */
-  static show_playlist() {
-    return { success: (fn) => fn({ result: [] }) };
+  /**
+   * 精选歌单 — 列出 FEATURED_DIR 下的子文件夹（支持分页）
+   * 通过 Alist /api/fs/list 获取目录内容，过滤 is_dir=true 作为歌单
+   */
+  static show_playlist(url) {
+    const offset = parseInt(getParameterByName('offset', url), 10) || 0;
+    const page = Math.floor(offset / this.PLAYLIST_PAGE_SIZE) + 1;
+
+    return {
+      success: (fn) => {
+        axios
+          .post(`${this.apiBase}/api/fs/list`, {
+            path: this.FEATURED_DIR,
+            password: '',
+            page,
+            per_page: this.PLAYLIST_PAGE_SIZE,
+            refresh: false,
+          })
+          .then((response) => {
+            const content = response.data?.data?.content || [];
+            const total = response.data?.data?.total ?? content.length;
+
+            const result = content
+              .filter((f) => f.is_dir)
+              .map((f) => {
+                const fullPath = `${this.FEATURED_DIR}${this.FEATURED_DIR.endsWith('/') ? '' : '/'}${f.name}`;
+                const encPath = encodeURIComponent(fullPath);
+                return {
+                  id: `agdir_${encPath}`,
+                  title: f.name,
+                  source: 'asmrgay',
+                  source_url: `${this.apiBase}${fullPath}`,
+                  img_url: 'https://y.gtimg.cn/mediastyle/global/img/playlist_300.png',
+                  url: `agdir_${encPath}`,
+                  author: this.FEATURED_DIR,
+                  count: 0,
+                };
+              });
+
+            fn({ result, total });
+          })
+          .catch(() => {
+            fn({ result: [], total: 0 });
+          });
+      },
+    };
   }
 
   /**
