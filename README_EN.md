@@ -10,7 +10,7 @@ A modernized fork of [Listen1](https://github.com/listen1/listen1_chrome_extensi
 ## Key Features
 
 - **Built-in Download** — One-click song download with progress tracking, batch download, custom filenames
-- **Free Providers** — Xiaoqiu, Xiaowo and other free music sources
+- **Free Providers** — Xiaoqiu, Xiaowo, ASMR GAY, ASMR Moon, ASMR.one and other free music sources (7 total)
 - **GD API Support** — Netease and Joox playback via GD API fallback
 
 ## Supported Platforms
@@ -27,6 +27,9 @@ A modernized fork of [Listen1](https://github.com/listen1/listen1_chrome_extensi
 | Joox | jx | Via GD API |
 | Xiaoqiu | xq | Free source |
 | Xiaowo | xw | Free source |
+| ASMR GAY | ag | Free source (Alist API) |
+| ASMR Moon | am | Free source (Alist API) |
+| ASMR.one | ao | Free source (asmr-300 API, guest login supported) |
 
 ## Install
 

@@ -10,7 +10,7 @@
 ## 新增特性
 
 - **内置下载** — 歌曲一键下载，支持进度显示、批量下载
-- **免费 Provider** — 新增小秋（xiaoqiu）、小窝（xiaowo）、ASMR GAY（asmrgay）、网易云（GD）、Joox 这 5 个免费音乐源
+- **免费 Provider** — 新增小秋、小窝、ASMR GAY、ASMR Moon、ASMR.one、网易云（GD）、Joox 共 7 个免费音乐源
 
 ## 支持的音乐平台
 
@@ -27,6 +27,8 @@
 | 小秋音乐 | xq | 免费源 (需网络可用) |
 | 小窝音乐 | xw | 免费源 (需网络可用) |
 | ASMR GAY | ag | 免费源，基于 Alist API |
+| ASMR Moon | am | 免费源，基于 Alist API |
+| ASMR.one | ao | 免费源，基于 asmr-300 API (支持 guest 登录) |
 
 ## 安装
 
