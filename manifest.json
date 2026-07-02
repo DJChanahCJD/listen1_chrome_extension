@@ -51,7 +51,12 @@
     "*://asmrmoon.com/*",
     "*://*.asmr.one/*",
     "*://*.asmr-300.com/*",
-    "*://as.mr/*"
+    "*://as.mr/*",
+    "*://itunes.apple.com/*",
+    "*://*.xyzfm.space/*",
+    "*://*.ximalaya.com/*",
+    "*://*.acast.com/*",
+    "*://amp-api.podcasts.apple.com/*"
   ],
   "version": "2.33.0",
   "web_accessible_resources": [

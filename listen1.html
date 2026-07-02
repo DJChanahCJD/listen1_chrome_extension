@@ -60,6 +60,7 @@
     <script type="text/javascript" src="js/provider/asmrgay.js"></script>
     <script type="text/javascript" src="js/provider/asmrmoon.js"></script>
     <script type="text/javascript" src="js/provider/asmrone.js"></script>
+    <script type="text/javascript" src="js/provider/podcast.js"></script>
 
     <script type="text/javascript" src="js/bridge.js"></script>
     <script type="text/javascript" src="js/player_thread.js"></script>
@@ -2072,15 +2073,6 @@
                           </svg>
                         </a>
                       </div>
-                      <div class="batch-entry" ng-show="!batchMode && playlist.length > 0">
-                        <button ng-click="toggleBatchMode()">{{_BATCH_DOWNLOAD}}</button>
-                      </div>
-                      <div class="batch-toolbar" ng-show="batchMode">
-                        <label><input type="checkbox" ng-checked="allSelected(playlist)" ng-click="allSelected(playlist) ? deselectAll() : selectAll(playlist)"> {{_SELECT_ALL}}</label>
-                        <span class="batch-count">{{selectedCount(playlist)}} / {{playlist.length}}</span>
-                        <button ng-click="downloadSelected(playlist)">{{_DOWNLOAD_SELECTED}}</button>
-                        <button ng-click="toggleBatchMode()">{{_EXIT_BATCH_MODE}}</button>
-                      </div>
                       <ul class="menu-list">
                         <li
                           id="song{{ song.id }}"
@@ -2099,7 +2091,6 @@
                           drag-zone-type="'application/listen1-song'"
                           drop-zone-ondrop="onCurrentPlayingSongDrop(song, arg1, arg2, arg3)"
                         >
-                          <input type="checkbox" class="song-checkbox" ng-show="batchMode" ng-checked="selectedSongIds[song.id]" ng-click="toggleSelect(song); $event.stopPropagation()">
                           <div class="song-status-icon">
                             <svg
                               class="feather play"

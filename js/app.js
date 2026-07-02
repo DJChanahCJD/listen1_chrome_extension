@@ -64,6 +64,10 @@ const sourceList = [
     name: 'asmrone',
     displayId: '_ASMRONE_MUSIC',
   },
+  {
+    name: 'podcast',
+    displayId: '_PODCAST_MUSIC',
+  },
 ];
 
 const main = () => {
