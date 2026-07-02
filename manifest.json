@@ -55,8 +55,7 @@
     "*://itunes.apple.com/*",
     "*://*.xyzfm.space/*",
     "*://*.ximalaya.com/*",
-    "*://*.acast.com/*",
-    "*://amp-api.podcasts.apple.com/*"
+    "*://*.acast.com/*"
   ],
   "version": "2.33.0",
   "web_accessible_resources": [

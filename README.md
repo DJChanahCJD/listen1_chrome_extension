@@ -11,7 +11,7 @@
 
 - **内置下载** — 歌曲一键下载，支持进度显示、批量下载
 - **免费 Provider** — 新增小秋、小窝、ASMR GAY、ASMR Moon、ASMR.one、网易云（GD）、Joox 共 7 个免费音乐源
-- **播客支持** — iTunes 播客搜索 + RSS Feed 解析，预置精选中文播客节目
+- **播客支持** — iTunes 播客搜索 + Apple Podcasts 多国排行榜，支持分类浏览
 
 ## 支持的音乐平台
 
@@ -30,7 +30,7 @@
 | ASMR GAY | ag | 免费源，基于 Alist API |
 | ASMR Moon | am | 免费源，基于 Alist API |
 | ASMR.one | ao | 免费源，基于 asmr-300 API (支持 guest 登录) |
-| 播客 | po | iTunes 搜索 + RSS Feed，支持精选播客节目 |
+| 播客 | po | Apple Podcasts 排行榜 + iTunes 搜索 + RSS Feed |
 
 ## 安装
 

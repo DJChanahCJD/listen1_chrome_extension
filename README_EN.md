@@ -11,7 +11,7 @@ A modernized fork of [Listen1](https://github.com/listen1/listen1_chrome_extensi
 
 - **Built-in Download** — One-click song download with progress tracking, batch download, custom filenames
 - **Free Providers** — Xiaoqiu, Xiaowo, ASMR GAY, ASMR Moon, ASMR.one and other free music sources (7 total)
-- **Podcast Support** — iTunes podcast search + RSS feed parsing, curated Chinese podcast shows
+- **Podcast Support** — iTunes podcast search + Apple Podcasts charts with multi-country/category browsing
 - **GD API Support** — Netease and Joox playback via GD API fallback
 
 ## Supported Platforms
@@ -31,7 +31,7 @@ A modernized fork of [Listen1](https://github.com/listen1/listen1_chrome_extensi
 | ASMR GAY | ag | Free source (Alist API) |
 | ASMR Moon | am | Free source (Alist API) |
 | ASMR.one | ao | Free source (asmr-300 API, guest login supported) |
-| Podcast | po | iTunes search + RSS feeds, curated podcast shows |
+| Podcast | po | Apple Podcasts charts + iTunes search + RSS feeds |
 
 ## Install
 
