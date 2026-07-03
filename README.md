@@ -72,6 +72,10 @@
 └── ...
 ```
 
+## 参考资料
+- [GD Studio API](https://music-api.gdstudio.xyz/api.php)
+- [洛雪音乐音源](https://github.com/Huibq/keep-alive)
+
 ## License
 
 MIT
