@@ -4,8 +4,9 @@
 
 基于 [Listen1](https://github.com/listen1/listen1_chrome_extension) 的现代化增强分支，**内置下载功能 + 免费音乐源支持**。
 
-> 原版 Listen1 是一个跨平台音乐聚合播放器浏览器扩展，支持在网易云、QQ 音乐等平台搜歌听歌。
-> 本分支在此基础上增加了下载能力和更多免费音源。
+<img width="849" height="399" alt="image" src="https://github.com/user-attachments/assets/a3ff7650-04c1-4a77-afd4-5d2d70e72a25" />
+
+
 
 ## 新增特性
 
@@ -17,14 +18,15 @@
 
 | Provider | ID | 说明 |
 |----------|----|------|
-| 网易云音乐 | ne | 原生 + GD API (gdnetease) |
+| 网易云音乐 | ne | |
 | QQ 音乐 | qq | |
 | 酷狗音乐 | kg | |
 | 酷我音乐 | kw | |
 | Bilibili | bi | |
 | 咪咕音乐 | mg | |
 | 千千音乐 | th | |
-| Joox | jx | 通过 GD API |
+| 网易云（GD）| gn | 基于 GD Studio's API |
+| Joox | jx | 基于 GD Studio's API |
 | 小秋音乐 | xq | 免费源 (需网络可用) |
 | 小窝音乐 | xw | 免费源 (需网络可用) |
 | ASMR GAY | ag | 免费源，基于 Alist API |
