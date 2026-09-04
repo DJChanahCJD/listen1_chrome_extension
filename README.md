@@ -11,7 +11,7 @@
 ## 新增特性
 
 - **内置下载** — 歌曲一键下载，支持进度显示、批量下载
-- **免费 Provider** — 新增小秋、小窝、ASMR GAY、ASMR Moon、ASMR.one、网易云（GD）、Joox 共 7 个免费音乐源
+- **免费 Provider** — 新增 ASMR GAY、ASMR Moon、ASMR.one、网易云（GD）、Joox 共 5 个免费音乐源
 - **播客支持** — iTunes 播客搜索 + Apple Podcasts 多国排行榜，支持分类浏览
 
 ## 支持的音乐平台
@@ -25,13 +25,11 @@
 | Bilibili | bi | |
 | 咪咕音乐 | mg | |
 | 千千音乐 | th | |
-| 网易云（GD）| gn | 基于 GD Studio's API |
-| Joox | jx | 基于 GD Studio's API |
-| 小秋音乐 | xq | 免费源 (需网络可用) |
-| 小窝音乐 | xw | 免费源 (需网络可用) |
+| 网易云（GD）| gn | 免费源，基于 GD Studio's API |
+| Joox | jx | 免费源，基于 GD Studio's API |
 | ASMR GAY | ag | 免费源，基于 Alist API |
 | ASMR Moon | am | 免费源，基于 Alist API |
-| ASMR.one | ao | 免费源，基于 asmr-300 API (支持 guest 登录) |
+| ASMR.one | ao | 免费源，基于 asmr-300 API |
 | 播客 | po | Apple Podcasts 排行榜 + iTunes 搜索 + RSS Feed |
 
 ## 安装

@@ -121,7 +121,7 @@
 
 格式：`{provider_id前2位}{平台原始id}`。例如 `ne12345` = 网易云，`qq67890` = QQ 音乐。
 
-Provider ID 映射：`ne`=网易、`qq`=QQ、`kg`=酷狗、`kw`=酷我、`bi`=B站、`mg`=咪咕、`th`=千千、`gn`=GD网易、`jx`=Joox、`xq`=小秋、`xw`=小窝、`ag`=ASMR GAY、`am`=ASMR Moon、`ao`=ASMR.one、`po`=Podcast（播客）、`lm`=本地、`my`=我的歌单、`xm`=虾米。
+Provider ID 映射：`ne`=网易、`qq`=QQ、`kg`=酷狗、`kw`=酷我、`bi`=B站、`mg`=咪咕、`th`=千千、`gn`=GD网易、`jx`=Joox、`ag`=ASMR GAY、`am`=ASMR Moon、`ao`=ASMR.one、`po`=Podcast（播客）、`lm`=本地、`my`=我的歌单、`xm`=虾米。
 
 ### 自动切换播放源（Failover）
 
