@@ -61,8 +61,6 @@
 │   ├── download.js            # 下载入口（全局函数，兼容 ng-click）
 │   ├── download_manager.js    # 下载管理器（队列、进度、并发控制）
 │   ├── provider/
-│   │   ├── xiaoqiu.js         # 小秋音乐 (id: xq)
-│   │   ├── xiaowo.js          # 小窝音乐 (id: xw)
 │   │   ├── asmrgay.js         # ASMR GAY (id: ag)
 │   │   ├── gdnetease.js       # GD 网易云 (id: gn)
 │   │   ├── joox.js            # Joox (id: jx)

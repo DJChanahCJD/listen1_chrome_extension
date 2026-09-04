@@ -45,14 +45,6 @@ const sourceList = [
     displayId: '_JOOX_MUSIC',
   },
   {
-    name: 'xiaoqiu',
-    displayId: '_XIAOQIU_MUSIC',
-  },
-  {
-    name: 'xiaowo',
-    displayId: '_XIAOWO_MUSIC',
-  },
-  {
     name: 'asmrgay',
     displayId: '_ASMRGAY_MUSIC',
   },

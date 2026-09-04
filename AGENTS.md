@@ -56,8 +56,6 @@
 │   │   ├── taihe.js       # 千千音乐 (id: 'th')
 │   │   ├── gdnetease.js   # GD网易云 (id: 'gn')，搜索/歌单/歌词委托netease，仅音频URL走GD API
 │   │   ├── joox.js        # Joox (id: 'jx')，全功能走GD API
-│   │   ├── xiaoqiu.js     # 小秋音乐 (id: 'xq')，免费源
-│   │   ├── xiaowo.js      # 小窝音乐 (id: 'xw')，免费源
 │   │   ├── asmrgay.js     # ASMR GAY (id: 'ag')，Alist API，免费源
 │   │   ├── asmrmoon.js    # ASMR Moon (id: 'am')，Alist API，免费源
 │   │   ├── asmrone.js     # ASMR.one (id: 'ao')，asmr-300 API，免费源，支持 guest 登录
@@ -154,7 +152,7 @@ Provider ID 映射：`ne`=网易、`qq`=QQ、`kg`=酷狗、`kw`=酷我、`bi`=B�
 
 ```js
 /* global l1Player MediaService downloadManager */
-/* global netease qq kugou kuwo bilibili migu taihe gdnetease joox xiaoqiu xiaowo asmrgay asmrmoon asmrone podcast localmusic myplaylist */
+/* global netease qq kugou kuwo bilibili migu taihe gdnetease joox asmrgay asmrmoon asmrone podcast localmusic myplaylist */
 ```
 
 修改时需注意 script 加载顺序（见 `listen1.html`），后加载的文件可引用先加载的全局变量。

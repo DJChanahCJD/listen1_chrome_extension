@@ -337,64 +337,92 @@ class qq {
     };
   }
 
+  /**
+   * 搜索（歌曲 / 歌单）
+   * 歌曲搜索走 soso 端点 client_search_cp（匿名可用，注意不能带 new_json=1）。
+   * 原 musicu.fcg DoSearchForQQMusicDesktop 对匿名请求返回业务 code 2001，已弃用。
+   * 歌单搜索无匿名替代端点，仍走 musicu.fcg，需校验业务 code（匿名时为 2001）。
+   */
   static search(url) {
-    // eslint-disable-line no-unused-vars
     const keyword = getParameterByName('keywords', url);
     const curpage = getParameterByName('curpage', url);
     const searchType = getParameterByName('type', url);
 
-    // API solution from lx-music-desktop
-    // https://github.com/lyswhut/lx-music-desktop/blob/master/src/renderer/utils/music/tx/musicSearch.js
-    const target_url = 'https://u.y.qq.com/cgi-bin/musicu.fcg';
-
-    const searchTypeMapping = {
-      0: 0,
-      1: 3,
-    };
-
     return {
       success: (fn) => {
         const limit = 50;
-        const page = curpage;
-        const query = {
-          comm: {
-            ct: '19',
-            cv: '1859',
-            uin: '0',
-          },
-          req: {
-            method: 'DoSearchForQQMusicDesktop',
-            module: 'music.search.SearchCgiService',
-            param: {
-              grp: 1,
-              num_per_page: limit,
-              page_num: parseInt(page, 10),
-              query: keyword,
-              search_type: searchTypeMapping[searchType],
+        const page = parseInt(curpage, 10);
+        if (searchType === '1') {
+          // 歌单搜索，仍走 musicu.fcg（需检查业务 code，避免失败被静默吞掉）
+          const target_url = 'https://u.y.qq.com/cgi-bin/musicu.fcg';
+          const query = {
+            comm: {
+              ct: '19',
+              cv: '1859',
+              uin: '0',
             },
-          },
-        };
-        axios.post(target_url, query).then((response) => {
+            req: {
+              method: 'DoSearchForQQMusicDesktop',
+              module: 'music.search.SearchCgiService',
+              param: {
+                grp: 1,
+                num_per_page: limit,
+                page_num: page,
+                query: keyword,
+                search_type: 3,
+              },
+            },
+          };
+          axios.post(target_url, query).then((response) => {
+            const { data } = response;
+            let result = [];
+            let total = 0;
+            if (data.req && data.req.code === 0) {
+              result = data.req.data.body.songlist.list.map((info) => ({
+                id: `qqplaylist_${info.dissid}`,
+                title: this.htmlDecode(info.dissname),
+                source: 'qq',
+                source_url: `https://y.qq.com/n/ryqq/playlist/${info.dissid}`,
+                img_url: info.imgurl,
+                url: `qqplaylist_${info.dissid}`,
+                author: this.UnicodeToAscii(info.creator.name),
+                count: info.song_count,
+              }));
+              total = data.req.data.meta.sum;
+            } else {
+              console.warn(
+                `qq playlist search failed, code: ${data.req && data.req.code}`
+              );
+            }
+            return fn({
+              result,
+              total,
+              type: searchType,
+            });
+          });
+          return;
+        }
+
+        // 歌曲搜索，走 soso 端点 client_search_cp（匿名可用，不能带 new_json=1）
+        const target_url =
+          'https://c.y.qq.com/soso/fcgi-bin/client_search_cp' +
+          `?ct=24&qqmusic_ver=1238&remoteplace=txt.yqq.center&t=0` +
+          '&aggr=1&cr=1&catZhida=1&lossless=0&flag_qc=0' +
+          `&p=${page}&n=${limit}&w=${encodeURIComponent(keyword)}` +
+          '&g_tk=5381&loginUin=0&hostUin=0&format=json' +
+          '&inCharset=utf8&outCharset=utf-8&notice=0' +
+          '&platform=yqq.json&needNewCode=0';
+        axios.get(target_url).then((response) => {
           const { data } = response;
           let result = [];
           let total = 0;
-          if (searchType === '0') {
-            result = data.req.data.body.song.list.map((item) =>
-              this.qq_convert_song2(item)
+          if (data.code === 0 && data.data && data.data.song) {
+            result = data.data.song.list.map((item) =>
+              this.qq_convert_song(item)
             );
-            total = data.req.data.meta.sum;
-          } else if (searchType === '1') {
-            result = data.req.data.body.songlist.list.map((info) => ({
-              id: `qqplaylist_${info.dissid}`,
-              title: this.htmlDecode(info.dissname),
-              source: 'qq',
-              source_url: `https://y.qq.com/n/ryqq/playlist/${info.dissid}`,
-              img_url: info.imgurl,
-              url: `qqplaylist_${info.dissid}`,
-              author: this.UnicodeToAscii(info.creator.name),
-              count: info.song_count,
-            }));
-            total = data.req.data.meta.sum;
+            total = data.data.song.totalnum;
+          } else {
+            console.warn(`qq song search failed, code: ${data.code}`);
           }
           return fn({
             result,
