@@ -11,7 +11,7 @@
 ## 新增特性
 
 - **内置下载** — 歌曲一键下载，支持进度显示、批量下载
-- **免费 Provider** — 新增 ASMR GAY、ASMR Moon、ASMR.one、网易云（GD）、Joox 共 5 个免费音乐源
+- **免费 Provider** — 新增 ASMR GAY、ASMR Moon、ASMR.one、网易云（GD）、Joox、Jamendo、Hi歌曲 共 7 个免费音乐源
 - **播客支持** — iTunes 播客搜索 + Apple Podcasts 多国排行榜，支持分类浏览
 
 ## 支持的音乐平台
@@ -31,6 +31,8 @@
 | ASMR Moon | am | 免费源，基于 Alist API |
 | ASMR.one | ao | 免费源，基于 asmr-300 API |
 | 播客 | po | Apple Podcasts 排行榜 + iTunes 搜索 + RSS Feed |
+| Jamendo | ja | 免费源，站点内部 JSON 接口，无歌词 |
+| Hi歌曲 | hq | 免费源，HTML 抓取，含封面与 LRC 歌词 |
 
 ## 安装
 
@@ -62,6 +64,8 @@
 │   │   ├── asmrgay.js         # ASMR GAY (id: ag)
 │   │   ├── gdnetease.js       # GD 网易云 (id: gn)
 │   │   ├── joox.js            # Joox (id: jx)
+│   │   ├── jamendo.js         # Jamendo (id: ja)
+│   │   ├── higequ.js          # Hi歌曲 (id: hq)
 │   │   └── ...                # 其余同原版
 │   └── ...
 ├── manifest.json              # MV3 配置

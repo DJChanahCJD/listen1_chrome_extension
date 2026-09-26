@@ -52,6 +52,9 @@
     "*://*.asmr-300.com/*",
     "*://as.mr/*",
     "*://itunes.apple.com/*",
+    "*://*.jamendo.com/*",
+    "*://higequ.com/*",
+    "*://*.higequ.com/*",
     "*://*.xyzfm.space/*",
     "*://*.ximalaya.com/*",
     "*://*.acast.com/*"

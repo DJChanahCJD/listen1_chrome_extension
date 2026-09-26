@@ -1,5 +1,5 @@
 /* global async LRUCache setPrototypeOfLocalStorage getLocalStorageValue */
-/* global netease xiami qq kugou kuwo bilibili migu taihe localmusic myplaylist gdnetease joox asmrgay asmrmoon asmrone podcast */
+/* global netease xiami qq kugou kuwo bilibili migu taihe localmusic myplaylist gdnetease joox asmrgay asmrmoon asmrone podcast jamendo higequ */
 
 const PROVIDERS = [
   {
@@ -100,6 +100,20 @@ const PROVIDERS = [
     searchable: true,
     support_login: false,
     id: 'po',
+  },
+  {
+    name: 'jamendo',
+    instance: jamendo,
+    searchable: true,
+    support_login: false,
+    id: 'ja',
+  },
+  {
+    name: 'higequ',
+    instance: higequ,
+    searchable: true,
+    support_login: false,
+    id: 'hq',
   },
   {
     name: 'localmusic',

@@ -60,6 +60,8 @@
 │   │   ├── asmrmoon.js    # ASMR Moon (id: 'am')，Alist API，免费源
 │   │   ├── asmrone.js     # ASMR.one (id: 'ao')，asmr-300 API，免费源，支持 guest 登录
 │   │   ├── podcast.js     # 播客 (id: 'po')，iTunes 搜索 + RSS Feed 解析
+│   │   ├── jamendo.js     # Jamendo (id: 'ja')，站点内部 JSON 接口 + 确定性音频直链，免费源
+│   │   ├── higequ.js      # Hi歌曲 (id: 'hq')，HTML 抓取型，播放页 base64 取流 + LRC 歌词，免费源
 │   │   ├── localmusic.js  # 本地音乐 (id: 'lm', hidden)
 │   │   └── xiami.js       # 虾米 (id: 'xm', hidden, 已停用)
 │   └── vendor/            # 第三方库（min 版）
@@ -121,7 +123,25 @@
 
 格式：`{provider_id前2位}{平台原始id}`。例如 `ne12345` = 网易云，`qq67890` = QQ 音乐。
 
-Provider ID 映射：`ne`=网易、`qq`=QQ、`kg`=酷狗、`kw`=酷我、`bi`=B站、`mg`=咪咕、`th`=千千、`gn`=GD网易、`jx`=Joox、`ag`=ASMR GAY、`am`=ASMR Moon、`ao`=ASMR.one、`po`=Podcast（播客）、`lm`=本地、`my`=我的歌单、`xm`=虾米。
+Provider ID 映射：`ne`=网易、`qq`=QQ、`kg`=酷狗、`kw`=酷我、`bi`=B站、`mg`=咪咕、`th`=千千、`gn`=GD网易、`jx`=Joox、`ag`=ASMR GAY、`am`=ASMR Moon、`ao`=ASMR.one、`po`=Podcast（播客）、`ja`=Jamendo、`hq`=Hi歌曲、`lm`=本地、`my`=我的歌单、`xm`=虾米。
+
+### 免鉴权站点音源（jamendo / higequ）
+
+两者都复用站点自身 Web 前端的接口/页面，无 client_id、无登录、**只有一档音频流**（不要为它们做码率探测/切换）：
+
+| | jamendo（JSON API 型） | higequ（HTML 抓取型） |
+|---|---|---|
+| 搜索 | `GET /api/search`，需 `x-jam-call` 头（`$` + sha1(path+rand).hex + `*` + rand + `~`，forge.md.sha1 计算） | `/s/{关键词}/{页码}/`，`DOMParser` 解析 `.result-item[data-rid]`，站点固定 10 条/页；一格 listen1 页并发抓站点 2 页凑满 20 条 |
+| 分页 | 接口只认 `offset`（`(page-1)*limit`），满页视为还有下一页 | `#next-page` 是否带 `disabled`；总页数取 `#page-numbers` 里的最大页码，`total = 总页数 × 10`（拿不到时退化为「已翻页数 × 20」）；其中一页抓失败时保留另一页结果 |
+| 取流 | 确定性模板 `https://prod-1.storage.jamendo.com/?trackid={id}&format=mp32`，零额外请求 | 每次播放抓一次 `/player/{rid}/`，`let code = "..."` base64 解码出直链 |
+| 封面/歌词 | 封面在搜索结果内，无歌词 | 播放页解析 `#album-cover` + `.lyric-line[data-time]`（秒）→ 拼 LRC；搜索页无封面 |
+| 缓存 | 无 | 详情 10min/LRU50、搜索 2min/LRU30、同一 rid in-flight 去重用 `_pending_detail`，失败不写缓存 |
+
+歌单页签：两者都没有歌单列表接口，`show_playlist` / `get_playlist_filters` 返回空（与 Joox、GD 网易云同样处理，照常占「精选歌单」页签）。歌手/专辑点击由 `get_playlist` 用同名搜索代偿。
+
+**搜索分页的硬约定**：`instant_search.js` 固定按 `Math.ceil(total / 20)` 算总页数，`下一页` 的 `ng-disabled` 是 `curpage == totalpage`。所以 search 返回的 `total` 必须满足 `ceil(total/20) > curpage` 才会有「加载更多」——第一页返回 `total` 等于本页条数（如 10 或 20）时按钮是灰的，这是最容易踩的坑。
+
+回归脚本：`node temp/verify-providers.mjs`（Node VM + 最小 shim 直接跑 provider 源码；jamendo 走真实网络，higequ 走 `temp/fixtures.mjs` 里的真实抓取夹具，`LIVE=1` 可改走真实网络）。
 
 ### 自动切换播放源（Failover）
 
@@ -194,6 +214,7 @@ Provider ID 映射：`ne`=网易、`qq`=QQ、`kg`=酷狗、`kw`=酷我、`bi`=B�
 5. 在 `manifest.json` 的 `host_permissions` 中添加平台域名
 6. 在 `rules_1.json` 中添加请求头改写规则（如需要）
 7. 在各 `i18n/*.json` 中添加平台显示名翻译
+8. 若平台没有歌单列表接口，`show_playlist` / `get_playlist_filters` 返回空即可（页签照常显示，与 Joox、GD 网易云一致）
 
 ### 添加新 Controller
 

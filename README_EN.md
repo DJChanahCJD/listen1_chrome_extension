@@ -10,7 +10,7 @@ A modernized fork of [Listen1](https://github.com/listen1/listen1_chrome_extensi
 ## Key Features
 
 - **Built-in Download** — One-click song download with progress tracking, batch download, custom filenames
-- **Free Providers** — ASMR GAY, ASMR Moon, ASMR.one and other free music sources (5 total)
+- **Free Providers** — ASMR GAY, ASMR Moon, ASMR.one, Jamendo, HiGeQu and other free music sources (7 total)
 - **Podcast Support** — iTunes podcast search + Apple Podcasts charts with multi-country/category browsing
 - **GD API Support** — Netease and Joox playback via GD API fallback
 
@@ -30,6 +30,8 @@ A modernized fork of [Listen1](https://github.com/listen1/listen1_chrome_extensi
 | ASMR Moon | am | Free source (Alist API) |
 | ASMR.one | ao | Free source (asmr-300 API, guest login supported) |
 | Podcast | po | Apple Podcasts charts + iTunes search + RSS feeds |
+| Jamendo | ja | Free source, in-site JSON API, no lyrics |
+| HiGeQu | hq | Free source, HTML scraping, cover + LRC lyrics |
 
 ## Install
 

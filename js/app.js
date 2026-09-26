@@ -60,6 +60,14 @@ const sourceList = [
     name: 'podcast',
     displayId: '_PODCAST_MUSIC',
   },
+  {
+    name: 'jamendo',
+    displayId: '_JAMENDO_MUSIC',
+  },
+  {
+    name: 'higequ',
+    displayId: '_HIGEQU_MUSIC',
+  },
 ];
 
 const main = () => {
